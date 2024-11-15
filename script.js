@@ -68,3 +68,14 @@ document.addEventListener('DOMContentLoaded', function() {
     tabs.forEach((tab, index) => {
         tab.style.display = index === 0 ? 'block' : 'none';
     });
+    
+    // Created the tab links dynamically
+    const tabLinks = ['Tab 1', 'Tab 2', 'Tab 3'];
+    const nav = document.createElement('nav');
+    tabLinks.forEach((linkText, index) => {
+        const link = document.createElement('a');
+        link.href = '#';
+        link.textContent = linkText;
+        link.dataset.tabIndex = index;
+        nav.appendChild(link);
+    });
