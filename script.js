@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
         tab.style.display = index === 0 ? 'block' : 'none';
     });
     
-    // Created the tab links dynamically
+    // Create the tab links dynamically
     const tabLinks = ['Tab 1', 'Tab 2', 'Tab 3'];
     const nav = document.createElement('nav');
     tabLinks.forEach((linkText, index) => {
@@ -79,3 +79,16 @@ document.addEventListener('DOMContentLoaded', function() {
         link.dataset.tabIndex = index;
         nav.appendChild(link);
     });
+    document.body.insertBefore(nav, document.body.firstChild);
+
+    // Add event listener to each link
+    nav.addEventListener('click', function(event) {
+        if (event.target.tagName === 'A') {
+            event.preventDefault();
+            const selectedTab = parseInt(event.target.dataset.tabIndex, 10);
+            tabs.forEach((tab, index) => {
+                tab.style.display = index === selectedTab ? 'block' : 'none';
+            });
+        }
+    });
+});
