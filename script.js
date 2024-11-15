@@ -45,13 +45,12 @@ function updateBalloon() {
 function handleKeyPress(event) {
     if (event.key === 'ArrowUp') {
         inflateBalloon();
-        event.preventDefault(); // Prevents default action (scrolling)
+        event.preventDefault(); // Prevents default action scrolling
     } else if (event.key === 'ArrowDown') {
         deflateBalloon();
-        event.preventDefault(); // Prevents default action (scrolling)
+        event.preventDefault();
     }
 }
-
 // Add keydown event listener
 window.addEventListener('keydown', handleKeyPress);
 
@@ -62,3 +61,10 @@ window.addEventListener('keydown', handleKeyPress);
 // function as expected. There are many ways to accomplish this task, but you will need
 // to at minimum add listeners to each link and toggle the display of the tab contents.
 // Hint: display: none; hides an element, and display: block; will bring it
+
+// Initial setup to show only the first tab
+document.addEventListener('DOMContentLoaded', function() {
+    const tabs = document.querySelectorAll('#tabbed-contents > div');
+    tabs.forEach((tab, index) => {
+        tab.style.display = index === 0 ? 'block' : 'none';
+    });
