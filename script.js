@@ -12,47 +12,43 @@
 // Hint: Make sure you quote the emoji characters. They are strings, after all.
 // Hint: document.getElementById("balloon") will get the balloon element on the page.
 // Create the balloon element
+document.addEventListener('DOMContentLoaded', function() {
+    // Balloon functionality
+    const balloon = document.createElement('div');
+    balloon.id = 'balloon';
+    balloon.textContent = '🎈';
+    document.body.appendChild(balloon);
+    let size = 30; // Initial size in pixels
+    balloon.style.fontSize = size + 'px';
 
-const balloon = document.createElement('div');
-balloon.id = 'balloon';
-balloon.textContent = '🎈';
-document.body.appendChild(balloon);
-// Initial font size
-let size = 30; // Initial size in pixels
-balloon.style.fontSize = size + 'px';
-
-// Inflate the balloon
-function inflateBalloon() {
-    size *= 1.1; // Increase size by 10%
-    updateBalloon();
-}
-
-// Deflate the balloon
-function deflateBalloon() {
-    size *= 0.9; // Decrease size by 10%
-    updateBalloon();
-}
-// Update balloon size and check for explosion
-function updateBalloon() {
-    if (size > 300) { // Explosion size threshold
-        balloon.textContent = '💥'; // Change emoji to explosion
-        window.removeEventListener('keydown', handleKeyPress);
-    } else {
-        balloon.style.fontSize = size + 'px';
+    function inflateBalloon() {
+        size *= 1.1; // Increase size by 10%
+        updateBalloon();
     }
-}
-// Handle key press events
-function handleKeyPress(event) {
-    if (event.key === 'ArrowUp') {
-        inflateBalloon();
-        event.preventDefault(); // Prevents default action scrolling
-    } else if (event.key === 'ArrowDown') {
-        deflateBalloon();
-        event.preventDefault();
+
+    function deflateBalloon() {
+        size *= 0.9; // Decrease size by 10%
+        updateBalloon();
     }
-}
-// Add keydown event listener
-window.addEventListener('keydown', handleKeyPress);
+
+    function updateBalloon() {
+        if (size > 300) { // Explosion size threshold
+            balloon.textContent = '💥'; // Change emoji to explosion
+            window.removeEventListener('keydown', handleKeyPress);
+        } else {
+            balloon.style.fontSize = size + 'px';
+        }
+    }
+
+    function handleKeyPress(event) {
+        if (event.key === 'ArrowUp') {
+            inflateBalloon();
+            event.preventDefault(); // Prevents default action scrolling
+        } else if (event.key === 'ArrowDown') {
+            deflateBalloon();
+            event.preventDefault();
+        }
+    }
 
 // 2. The index.html page has a tabbed layout. Make the default state of the layout show
 // the first tab, and make it so that when you click the links at the top the correct
@@ -62,13 +58,14 @@ window.addEventListener('keydown', handleKeyPress);
 // to at minimum add listeners to each link and toggle the display of the tab contents.
 // Hint: display: none; hides an element, and display: block; will bring it
 
-// Initial setup to show only the first tab
-document.addEventListener('DOMContentLoaded', function() {
+window.addEventListener('keydown', handleKeyPress);
+
+    // Tab functionality
     const tabs = document.querySelectorAll('#tabbed-contents > div');
     tabs.forEach((tab, index) => {
         tab.style.display = index === 0 ? 'block' : 'none';
     });
-    
+
     // Create the tab links dynamically
     const tabLinks = ['Tab 1', 'Tab 2', 'Tab 3'];
     const nav = document.createElement('nav');
@@ -81,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     document.body.insertBefore(nav, document.body.firstChild);
 
-    // Add event listener to each link
+    // Add event listener to the navigation bar
     nav.addEventListener('click', function(event) {
         if (event.target.tagName === 'A') {
             event.preventDefault();
