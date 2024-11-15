@@ -32,6 +32,15 @@ function deflateBalloon() {
     size *= 0.9; // Decrease size by 10%
     updateBalloon();
 }
+// Update balloon size and check for explosion
+function updateBalloon() {
+    if (size > 300) { // Explosion size threshold
+        balloon.textContent = '💥'; // Change emoji to explosion
+        window.removeEventListener('keydown', handleKeyPress);
+    } else {
+        balloon.style.fontSize = size + 'px';
+    }
+}
 
 // 2. The index.html page has a tabbed layout. Make the default state of the layout show
 // the first tab, and make it so that when you click the links at the top the correct
