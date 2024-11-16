@@ -13,40 +13,39 @@
 // Hint: document.getElementById("balloon") will get the balloon element on the page.
 // Create the balloon element
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Balloon functionality
-    const balloon = document.getElementById('balloon');
-    let size = 30; // Initial size in pixels
-    balloon.style.fontSize = size + 'px';
+// Balloon functionality
+const balloon = document.getElementById('balloon'); // Grabs the balloon element from the DOM
+let size = 30; // This sets the initial size in pixels
+balloon.style.fontSize = size + 'px'; // Apply the initial size to the balloon
 
-    function inflateBalloon() {
-        size *= 1.1; // Increase size by 10%
-        updateBalloon();
-    }
+function inflateBalloon() {
+    size *= 1.1; // This increases the size by 10%
+    updateBalloon(); // Updated the balloon with the new size
+}
 
-    function deflateBalloon() {
-        size *= 0.9; // Decrease size by 10%
-        updateBalloon();
-    }
+function deflateBalloon() {
+    size *= 0.9; // This Decreases the size by 10%
+    updateBalloon(); // Updated the balloon with the new size
+}
 
-    function updateBalloon() {
-        if (size > 300) { // Explosion size threshold
-            balloon.textContent = '💥'; // Changed emoji to explosion
-            window.removeEventListener('keydown', handleKeyPress);
-        } else {
-            balloon.style.fontSize = size + 'px';
-        }
+function updateBalloon() {
+    if (size > 300) { // This checks if the size exceeds the explosion threshold
+        balloon.textContent = '💥'; // Change the emoji to explosion
+        window.removeEventListener('keydown', handleKeyPress); // Removes the keypress event listener to stop further resizing
+    } else {
+        balloon.style.fontSize = size + 'px'; // Updates font size of the balloon
     }
+}
 
-    function handleKeyPress(event) {
-        if (event.key === 'ArrowUp') {
-            inflateBalloon();
-            event.preventDefault(); // Prevents default action scrolling
-        } else if (event.key === 'ArrowDown') {
-            deflateBalloon();
-            event.preventDefault();
-        }
+function handleKeyPress(event) {
+    if (event.key === 'ArrowUp') {
+        inflateBalloon(); // This inflates the balloon when the up arrow key is pressed
+        event.preventDefault(); // Prevents the default scrolling action
+    } else if (event.key === 'ArrowDown') {
+        deflateBalloon(); // Deflate the balloon when the down arrow key is pressed
+        event.preventDefault(); // Prevents the default scrolling action
     }
+}
 
 // 2. The index.html page has a tabbed layout. Make the default state of the layout show
 // the first tab, and make it so that when you click the links at the top the correct
@@ -56,26 +55,25 @@ document.addEventListener('DOMContentLoaded', function() {
 // to at minimum add listeners to each link and toggle the display of the tab contents.
 // Hint: display: none; hides an element, and display: block; will bring it
 
-window.addEventListener('keydown', handleKeyPress);
+window.addEventListener('keydown', handleKeyPress); // Adds an event listener to handle key press events
 
 // Tab functionality
-const tabs = document.querySelectorAll('#tabbed-contents > div');
-const tabLinks = document.querySelectorAll('#tabbed-layout ul li a');
+const tabs = document.querySelectorAll('#tabbed-contents > div'); // Selects all tab content divs
+const tabLinks = document.querySelectorAll('#tabbed-layout ul li a'); // Selects all tab link elements
 
 // Show only the first tab by default
-tabs.forEach((tab, index) => {
-    tab.style.display = index === 0 ? 'block' : 'none';
+tabs.forEach((tab, index) => { // Iterates over each tab element and its index
+    tab.style.display = index === 0 ? 'block' : 'none'; // Displays the first tab and hides the others based on the index
 });
 
 // Add click event listeners to each tab link
-tabLinks.forEach((link, index) => {
-    link.addEventListener('click', function(event) {
-        event.preventDefault(); // Prevent the default action of the link
+tabLinks.forEach((link, index) => { // Iterates over each tab link element and its index
+    link.addEventListener('click', function(event) { // Adds a click event listener to each tab link
+        event.preventDefault(); // Prevents the default action of the link, which would be to navigate to a new page
 
         // Display the clicked tab and hide the others
-        tabs.forEach((tab, tabIndex) => {
-            tab.style.display = tabIndex === index ? 'block' : 'none';
+        tabs.forEach((tab, tabIndex) => { // Iterates over each tab element and its index again
+            tab.style.display = tabIndex === index ? 'block' : 'none'; // Displays the selected tab and hides the others
         });
     });
-});
 });
