@@ -12,12 +12,10 @@
 // Hint: Make sure you quote the emoji characters. They are strings, after all.
 // Hint: document.getElementById("balloon") will get the balloon element on the page.
 // Create the balloon element
+
 document.addEventListener('DOMContentLoaded', function() {
     // Balloon functionality
-    const balloon = document.createElement('div');
-    balloon.id = 'balloon';
-    balloon.textContent = '🎈';
-    document.body.appendChild(balloon);
+    const balloon = document.getElementById('balloon');
     let size = 30; // Initial size in pixels
     balloon.style.fontSize = size + 'px';
 
@@ -33,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function updateBalloon() {
         if (size > 300) { // Explosion size threshold
-            balloon.textContent = '💥'; // Change emoji to explosion
+            balloon.textContent = '💥'; // Changed emoji to explosion
             window.removeEventListener('keydown', handleKeyPress);
         } else {
             balloon.style.fontSize = size + 'px';
@@ -60,32 +58,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
 window.addEventListener('keydown', handleKeyPress);
 
-    // Tab functionality
-    const tabs = document.querySelectorAll('#tabbed-contents > div');
-    tabs.forEach((tab, index) => {
-        tab.style.display = index === 0 ? 'block' : 'none';
-    });
+// Tab functionality
+const tabs = document.querySelectorAll('#tabbed-contents > div');
+const tabLinks = document.querySelectorAll('#tabbed-layout ul li a');
 
-    // Create the tab links dynamically
-    const tabLinks = ['Tab 1', 'Tab 2', 'Tab 3'];
-    const nav = document.createElement('nav');
-    tabLinks.forEach((linkText, index) => {
-        const link = document.createElement('a');
-        link.href = '#';
-        link.textContent = linkText;
-        link.dataset.tabIndex = index;
-        nav.appendChild(link);
-    });
-    document.body.insertBefore(nav, document.body.firstChild);
+// Show only the first tab by default
+tabs.forEach((tab, index) => {
+    tab.style.display = index === 0 ? 'block' : 'none';
+});
 
-    // Add event listener to the navigation bar
-    nav.addEventListener('click', function(event) {
-        if (event.target.tagName === 'A') {
-            event.preventDefault();
-            const selectedTab = parseInt(event.target.dataset.tabIndex, 10);
-            tabs.forEach((tab, index) => {
-                tab.style.display = index === selectedTab ? 'block' : 'none';
-            });
-        }
+// Add click event listeners to each tab link
+tabLinks.forEach((link, index) => {
+    link.addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent the default action of the link
+
+        // Display the clicked tab and hide the others
+        tabs.forEach((tab, tabIndex) => {
+            tab.style.display = tabIndex === index ? 'block' : 'none';
+        });
     });
+});
 });
